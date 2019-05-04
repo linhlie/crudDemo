@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+
+<body>
+	<nav th:replace="layout :: header"></nav>
+
+	<div class="container" id="main-content">
+
+		<div class="row mt-4">
+			<div th:if="${successMessage}" class="col-12 alert alert-success alert-dismissible fade show" role="alert">
+				<span th:text="${successMessage}"></span>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<th:block th:if="${#lists.isEmpty(sinhviens)}">
+				<h5>No contacts</h5>
+			</th:block>
+
+			<th:block th:unless="${#lists.isEmpty(sinhviens)}">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover">
+						<thead>
+						<tr>
+							<th>#</th>
+							<th>Name</th>
+							<th>Age</th>
+							<th>ID Lop</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each="sinhvien,iterStat : ${sinhviens}">
+							<th scope="row" th:text="${iterStat.count}"></th>
+							<td th:text="${sinhvien.name}"></td>
+							<td th:text="${sinhvien.age}"></td>
+							<td th:text="${sinhvien.idlop}"></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</th:block>
+		</div>
+	</div><!-- /.container -->
+
+	<footer th:replace="layout :: footer"></footer>
+
+</body>
+</html>
